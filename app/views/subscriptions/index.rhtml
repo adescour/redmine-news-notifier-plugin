@@ -1,0 +1,34 @@
+<h1><%= l(:label_project_subscriptions_lists) %></h1>
+<hr>
+<br/>
+<% if @slists.size > 0 %>
+<table class="list">
+  <tr>
+    <th><%=l(:label_list_name)%></th>
+    <th><%=l(:label_list_users)%></th>
+    <th style="width:100px"></th>
+  </tr>
+  <% @slists.each{|list| %>
+  <tr>
+    <td>
+      <%=list.name%>
+    </td>
+    <td>
+      <% list.subscribers.each {|user| %>
+        <%= link_to_user(user) %>
+        <%=", " if user!=list.subscribers.last %>
+      <% } %>
+    </td>
+    <td>
+      <% form_for :subscriptions_lists, list, :url => {:controller => "subscriptions", :action => "delete_subscriptions_list"} do |f| %>
+        <%= hidden_field_tag('subscriptions_list[id]', list.id) %>
+        <%= hidden_field_tag('project_id', @project.id) %>
+        <%= f.submit l(:button_delete_list), :onclick => "return #{confirm_javascript_function(l(:label_confirm_delete))}" %>
+      <% end %>
+    </td>
+  </tr>
+  <% } %>
+</table>
+<% else %>
+  <em><%=l(:label_no_predefined_lists)%></em>
+<% end %>

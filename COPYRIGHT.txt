@@ -1,0 +1,9 @@
+News Notifier is a Redmine plugin that will allow the news writer to select the members
+of the project which will receive notification email of the news publication.
+
+Copyright (C) 2011 - 2011 Cassidian Test & Services, BB
+
+This program is under the terms of the GNU General Public License version 2.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+See the GNU General Public License for more details.

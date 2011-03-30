@@ -1,0 +1,5 @@
+<% project.users.sort.each { |user| %>
+  <label class="floating">
+    <%= check_box_tag 'news[watcher_user_ids][]', user.id, selected_users.include?(user.id) %> <%=h user %>
+  </label>
+<% } %>

@@ -1,0 +1,53 @@
+<% content_for :header_tags do %>
+  <%= javascript_include_tag 'subscriptions', :plugin => "redmine_news_notifier" %>
+<% end %>
+
+<%= error_messages_for 'news' %>
+<div class="box tabular">
+  <p><%= f.text_field :title, :required => true, :size => 60 %></p>
+  <p><%= f.text_area :summary, :cols => 60, :rows => 2 %></p>
+  <p><%= f.text_area :description, :required => true, :cols => 60, :rows => 15, :class => 'wiki-edit' %></p>
+
+
+<% 
+  # hide notifications when editing a news ( !id.nil? ) 
+  if params[:id].nil? 
+%>
+    <table style="width:100%">
+      <tr><td style="width:170px; text-align:right; vertical-align:top;">
+      <strong><%= l(:label_notify)%></strong><br/>
+      <%= check_all_links('news-form').gsub('|','<br/>') %><br/>
+      <strong><%= l(:label_predefined_list) %></strong><br/>
+      <select id="subscriptions_list_id" style="width:10em;"
+              onChange="
+              <%= remote_function(:update => 'news_watchers', 
+                                            :url => { :controller => :subscriptions, :action => :set_watchers },
+                                            :with => "'subscriptions_list_id='+this.value+'&project_id=#{@project.id}'"
+                                  ) %>
+                                  ">
+        <option></option>
+        <% @project.subscriptions_lists.sort.each{|sl| %>
+          <option value="<%=sl.id%>"><%= sl.name %></option>
+        <% } %>
+      </select>
+      <%= prompt_to_remote_extended(image_tag('add.png', :style => 'vertical-align: middle;'),
+                     l(:label_subscriptions_list_new),
+                     'subscriptions_list[name]', 
+                     {:controller => 'subscriptions', :action => 'add_news_subscriptions_list', :project_id => @project},
+                     :title => l(:label_subscriptions_list_new),
+                     :tabindex => 199) %>   
+      <br/>
+      <%= link_to l(:label_manage_lists), {:controller => "subscriptions", :action => "index", :project_id => @project}, :method => "post" %>
+    </label>
+    </td><td style="text-align:left; vertical-align:top;">
+    <div id="news_watchers">
+      <%= render :partial => "watchers", :locals => {:selected_users => [], :project => @project} 
+      %>
+    </div>
+    </td></tr>
+    </table>
+<% end %>
+</div>
+  <div style="clear:left;"></div>
+
+<%= wikitoolbar_for 'news_description' %>

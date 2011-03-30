@@ -1,0 +1,14 @@
+# Traduction française
+fr:
+  label_notify: "Notifier utilisateurs"
+  label_predefined_list: "Liste prédéfinie"
+  label_manage_lists: "Gérer listes"
+  label_subscriptions_list_new: "Edition d\'une liste d\'utilisateurs prédéfinie"
+  label_project_subscriptions_lists: "Listes d'utilisateurs prédéfinies pour le projet"
+  label_list_name: "Intitulé"
+  label_list_users: "Utilisateurs sélectionnés"
+  label_no_predefined_lists: "Aucune liste prédéfinie actuellement"
+  label_confirm_delete: "Êtes vous sûr de vouloir supprimer cette liste ?"
+  
+  button_delete_list: "Supprimer la liste"
+
